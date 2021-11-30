@@ -159,7 +159,67 @@ const emailChangeHandler = (e) => {
     <div className="new-expense__actions">
         <button type="submit"> Submit</button>
     </div>
-</form >
+</form>
+
+
+
+
+
+
+
+// alternatively we can use one one state object and one change handler
+
+
+import React, { useState } from 'react';
+
+import Card from '../UI/Card';
+import './IngredientForm.css';
+
+const IngredientForm = React.memo((props) => {
+
+    const [values, setValues] = useState({
+        title: '',
+        amount: '',
+    })
+
+
+    const onChangeHandler = (e) => {
+        const { name, value } = e.target; // get the name (ssigned values in the html form) and its value from the target
+        setValues({ // update the state using its function
+            ...values, // spread in the existing values
+            [name]: value, // add in the name and value as object key value pairs
+        })
+    }
+
+    const submitHandler = e => {
+        e.preventDefault();
+        console.log(values)
+        // do whatever we like with the new state values here
+    };
+
+    return (
+        <section className="ingredient-form">
+            <Card>
+                <form onSubmit={submitHandler}>
+                    <div className="form-control">
+                        <label htmlFor="title">Name</label>
+                        <input type="text" name="title" value={values.title} onChange={onChangeHandler} />
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="amount">Amount</label>
+                        <input type="number" name="amount" value={values.amount} onChange={onChangeHandler} />
+                    </div>
+                    <div className="ingredient-form__actions">
+                        <button type="submit">Add Ingredient</button>
+                    </div>
+                </form>
+            </Card>
+        </section>
+    );
+});
+
+export default IngredientForm;
+
 
 
 
@@ -294,3 +354,16 @@ props.addUser(field1, field2)
 
 
 
+
+
+// spreading in an objec to an array
+
+const [userIngredients, setUserIngredients] = useState([])
+
+const addIngredientHandler = (item) => {
+    setUserIngredients((prevState) => {
+        return [
+            ...prevState, { id: Math.floor(Math.random() * 100), ...item }
+        ]
+    })
+}

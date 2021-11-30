@@ -209,6 +209,9 @@ export default Navigation;
 
 
 
+
+
+
 // PASSING FUNCTIONS
 
 // if we use function outside of the Provider and use it in the value, its better to create a dummy function inside the context to be used later
